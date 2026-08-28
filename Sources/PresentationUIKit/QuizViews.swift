@@ -54,7 +54,7 @@ struct QuizOverlayView: View {
                             viewModel.selectQuizAnswer(index)
                         } label: {
                             HStack {
-                                Text("\(Character(UnicodeScalar(65 + index) ?? "A"))")
+                                Text(verbatim: String(Character(UnicodeScalar(65 + index) ?? "A")))
                                     .font(.title3.weight(.bold))
                                     .frame(width: 36, height: 36)
                                     .background(Circle().fill(.quaternary))
@@ -133,7 +133,7 @@ struct QuizMirrorView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     ForEach(Array(content.answers.enumerated()), id: \.offset) { index, answer in
                         HStack(spacing: 14) {
-                            Text("\(Character(UnicodeScalar(65 + index) ?? "A"))")
+                            Text(verbatim: String(Character(UnicodeScalar(65 + index) ?? "A")))
                                 .font(.title.weight(.bold))
                                 .frame(width: 44, height: 44)
                                 .background(Circle().fill(.white.opacity(0.2)))
