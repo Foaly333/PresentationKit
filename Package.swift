@@ -53,14 +53,16 @@ let package = Package(
         .testTarget(
             name: "PresentationCoreKitTests",
             dependencies: ["PresentationCoreKit"],
-            path: "Tests/PresentationCoreKitTests"
+            path: "Tests/PresentationCoreKitTests",
+            swiftSettings: appIsolationSettings
         ),
         // ViewModel- und Inhalts-Tests (Quiz, Timer, Medien) — das ViewModel
         // lebt im UI-Target, weil es PencilKit/UIKit braucht.
         .testTarget(
             name: "PresentationUIKitTests",
             dependencies: ["PresentationUIKit"],
-            path: "Tests/PresentationUIKitTests"
+            path: "Tests/PresentationUIKitTests",
+            swiftSettings: appIsolationSettings
         ),
     ]
 )
