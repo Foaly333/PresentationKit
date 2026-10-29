@@ -49,6 +49,9 @@ final class PresentationViewModel {
     var isSidebarVisible = false
     /// Vollbild-Raster aller Seiten (Schnellsprung ueber die Seitenanzeige).
     var showsPageGrid = false
+    /// Steuerleiste auf ein schwebendes Symbol eingeklappt (analog zur
+    /// minimierten PencilKit-Palette); startet aufgeklappt.
+    var isToolbarCollapsed = false
     /// Zur Laufzeit erzeugte Seitenvorschauen, Schluessel ist `PresentationPage.id`.
     private(set) var thumbnails: [UUID: UIImage] = [:]
 

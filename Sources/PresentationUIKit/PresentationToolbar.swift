@@ -155,6 +155,14 @@ struct PresentationToolbar: View {
             if let accessory {
                 accessory
             }
+
+            Button {
+                viewModel.isToolbarCollapsed = true
+            } label: {
+                Image(systemName: "chevron.down.circle")
+            }
+            .accessibilityIdentifier("praesentation.steuerleiste.einklappen")
+            .accessibilityLabel(Text(localized("Steuerleiste einklappen")))
         }
     }
 

@@ -517,6 +517,26 @@
         }
       }
     },
+    "Steuerleiste aufklappen" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expand toolbar"
+          }
+        }
+      }
+    },
+    "Steuerleiste einklappen" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collapse toolbar"
+          }
+        }
+      }
+    },
     "Soll-Abschnitt laut Agenda" : {
       "localizations" : {
         "en" : {

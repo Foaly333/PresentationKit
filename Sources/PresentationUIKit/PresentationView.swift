@@ -24,6 +24,9 @@ public struct PresentationView: View {
 
     @State private var viewModel: PresentationViewModel
     @State private var externalDisplay = ExternalDisplayController()
+    /// Ecke des eingeklappten Steuerleisten-Symbols; bleibt ueber
+    /// Ein-/Ausklappen hinweg erhalten.
+    @State private var collapsedToolbarCorner: ToolbarCorner = .bottomTrailing
     private let configuration: PresentationConfiguration
     private let toolbarAccessory: AnyView?
 
@@ -93,18 +96,21 @@ public struct PresentationView: View {
 
                     Spacer()
 
-                    PresentationToolbar(
-                        viewModel: viewModel,
-                        configuration: configuration,
-                        end: {
-                            viewModel.end()
-                            dismiss()
-                        },
-                        insertWhiteboard: {
-                            viewModel.insertWhiteboardPage()
-                        },
-                        accessory: toolbarAccessory
-                    )
+                    if !viewModel.isToolbarCollapsed {
+                        PresentationToolbar(
+                            viewModel: viewModel,
+                            configuration: configuration,
+                            end: {
+                                viewModel.end()
+                                dismiss()
+                            },
+                            insertWhiteboard: {
+                                viewModel.insertWhiteboardPage()
+                            },
+                            accessory: toolbarAccessory
+                        )
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
                 }
 
                 // Kontext-Karte des aktuellen Materials, oben rechts unter dem
@@ -127,6 +133,17 @@ public struct PresentationView: View {
 
                 sidebar
 
+                if viewModel.isToolbarCollapsed {
+                    CollapsedToolbarButton(
+                        viewModel: viewModel,
+                        corner: $collapsedToolbarCorner,
+                        containerSize: geometry.size
+                    ) {
+                        viewModel.isToolbarCollapsed = false
+                    }
+                    .transition(.scale(scale: 0.4).combined(with: .opacity))
+                }
+
                 if viewModel.showsPageGrid {
                     PageGridView(viewModel: viewModel) {
                         viewModel.showsPageGrid = false
@@ -146,6 +163,7 @@ public struct PresentationView: View {
             .animation(.easeInOut(duration: 0.2), value: viewModel.isSidebarVisible)
             .animation(.easeInOut(duration: 0.2), value: viewModel.showsPageContext)
             .animation(.easeInOut(duration: 0.2), value: viewModel.showsPageGrid)
+            .animation(.spring(duration: 0.3), value: viewModel.isToolbarCollapsed)
             .animation(.easeInOut(duration: 0.2), value: viewModel.activeQuiz != nil)
         }
         .statusBarHidden()
